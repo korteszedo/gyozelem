@@ -1,0 +1,31 @@
+table,tr,td,th {
+    border-collapse: collapse;
+    border: 1px,solid,black
+ }
+ 
+ 
+ table thead tr
+ {
+     background-color:chocolate;
+     font-weight: bold;
+ }
+ 
+ tbody tr:nth-child(2n)
+ {
+     background-color: blue;
+     font-weight: bold;
+ }
+ 
+ tbody tr:nth-child(2n+1)
+ {
+     background-color: violet;
+ }
+ table{
+     text-align: center;
+ }
+ 
+ tbody tr:hover{
+     background-color: coral; font-weight: bold;
+ }
+ 
+ 
