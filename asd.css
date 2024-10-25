@@ -1,12 +1,12 @@
 table,tr,td,th {
     border-collapse: collapse;
-    border: 1px,solid,black
+    border: 1px,solid,rgb(255, 0, 0)
  }
  
  
  table thead tr
  {
-     background-color:chocolate;
+     background-color:rgb(5, 243, 132);
      font-weight: bold;
  }
  
@@ -18,14 +18,12 @@ table,tr,td,th {
  
  tbody tr:nth-child(2n+1)
  {
-     background-color: violet;
+     background-color: rgb(255, 3, 255);
  }
  table{
      text-align: center;
  }
  
  tbody tr:hover{
-     background-color: coral; font-weight: bold;
+     background-color: rgb(157, 255, 0); font-weight: bold;
  }
- 
- 
