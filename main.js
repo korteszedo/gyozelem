@@ -49,6 +49,14 @@ for (let pers of array) {
     const td_lastname = document.createElement('td'); 
     td_lastname.innerHTML = pers.lastname;
 
+    let a;
+
+    if (a == a){
+        const td_firstname = document.createElement('td');
+        td_firstname.innerHTML = pers.firstname2
+
+    }
+
     tr_body.appendChild(td_firstname);
     tr_body.appendChild(td_lastname);
 }
