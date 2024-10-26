@@ -27,3 +27,7 @@ table,tr,td,th {
  tbody tr:hover{
      background-color: rgb(157, 255, 0); font-weight: bold;
  }
+
+ .selected {
+    transform: scale(1.2);
+ }
