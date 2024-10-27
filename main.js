@@ -80,117 +80,93 @@ form.addEventListener('submit' ,function(e){ //létrehozunk egy függvényt ami 
     //változóba tároljuk a hivatkozások értékeire
     
     const lastnamevalue = lastname.value; 
-    e.preventDefault(); 
+    e.preventDefault();  //megakadályozza hogy az újabb submit eseménykor frissüljenek a meglévő adatok és elvesszenek
     const firstname1value = firstname1.value;
     let firstname2value = firstname2.value;
     const marriedvalue = married.checked;
     const petvalue = pet.value;
 
 
-    if (firstname2value === ""){
-        firstname2value = undefined;
+    if (firstname2value === ""){    //ha firstname 2 üres
+        firstname2value = undefined; //akkor firstname2 nincs
     }
 
 
-    if (validateFields(lastname, firstname1, firstname2)){
+    if (validateFields(lastname, firstname1, firstname2)){ //ha megvan adva a függvény összes értéke
 
-        const newpers = {
+        const newpers = { //létrehozunk objektumot ami tartalmazza a mezők adatait
             lastname: lastnamevalue,
             firstname1: firstname1value,
             firstname2: firstname2value,
             married: marriedvalue,
             pet: petvalue
         }
-        array.push(newpers);
+        array.push(newpers); //feltöltjük az arrayhez a newpers értékeit
+        render(); //meghívjuk a render függvényt feltöltse az új adatokat
     }
 
     
-
-    render();
-
-
 })
 
 
 
-function render(){
+function render() {
+    tbody.innerHTML = ''; // töröljük a tbody korábbi tartalmát
 
     for (let pers of array) {
-        const tr_body = document.createElement('tr'); //létrehozzuk egy sort
+        const tr_body = document.createElement('tr'); // létrehozzuk egy sort
+
+        tr_body.addEventListener('click', function(e) { // létrehoztunk egy függvényt ami akkor fut le ha a 'click' esemény megtörténik
+            const select_tr = tbody.querySelector('.selected'); // lekéri a kijelölt sort
     
-    
-        tr_body.addEventListener('click', function(e){ //létrehoztunk egy függvényt ami akkor fut le ha a 'click' esemény megtörténik
-            const select_tr = tbody.querySelector('.selected') //lekéri a kijelölt sort
-    
-            if (select_tr != undefined){ // ha  a select_tr nem undifiend, tehát van kijelölt sor
-    
-                select_tr.classList.remove('selected') // ha eddig ki volt jelölve akkor azt eltávolítja, hogy új vehesse fel a kijelölést
-    
+            if (select_tr != undefined) { // ha  a select_tr nem undefined, tehát van kijelölt sor
+                select_tr.classList.remove('selected'); // eltávolítja a kijelölést
             }
     
-            
-            e.currentTarget.classList.add('selected') // a currentTargert ráteszi a select osztályt az e-re ami a kijelölt sor
-    
-        })
-    
-    
+            e.currentTarget.classList.add('selected'); // kijelöli az aktuális sort
+        });
+
         tbody.appendChild(tr_body); // a tbody alá rendeljük
-      
-        
-        const td_firstname = document.createElement('td'); //létrehozzuk a firstname helyét
+
+        const td_firstname = document.createElement('td'); // létrehozzuk a firstname helyét
         td_firstname.innerHTML = pers.firstname1; // megadjuk a firstname értékét
     
-    
-        const td_lastname = document.createElement('td'); //létrehozzuk a lastname helyét
-        td_lastname.innerHTML = pers.lastname; //megadjuk a lastname értéket
-    
-    
-        const td_firstname2 = document.createElement('td'); //létrehozzuk a firstname2 helyét
-        td_firstname2.innerHTML = pers.firstname2; // értéket adunk a firstname2nek
-        
-    
-        tr_body.appendChild(td_lastname); // sorba rendeljük a lastname-et a sorhoz
+        const td_lastname = document.createElement('td'); // létrehozzuk a lastname helyét
+        td_lastname.innerHTML = pers.lastname; // megadjuk a lastname értékét
+
+        tr_body.appendChild(td_lastname); // sorba rendeljük a lastname-et
         tr_body.appendChild(td_firstname); // sorba rendeljük a firstnamet
         
-        if (pers.firstname2 == undefined){ //ha nincs firstname 2
-            td_firstname.colSpan = 2  //akkor a táblázatunk 2 oszlopos lesz
-        }
-        else{
-            const td_firstname2 = document.createElement('td'); //létrehozzuk a firstname2 helyét
-            td_firstname2.innerHTML = pers.firstname2; // értéket adunk a firstname2nek
-            tr_body.appendChild(td_firstname2) // hozzá füzzük a firstname2-t a sorhoz
+        if (pers.firstname2 == undefined) { // ha nincs firstname2
+            td_firstname.colSpan = 2;  // akkor a táblázatunk 2 oszlopos lesz
+        } else {
+            const td_firstname2 = document.createElement('td'); // létrehozzuk a firstname2 helyét
+            td_firstname2.innerHTML = pers.firstname2; // értéket adunk a firstname2-nek
+            tr_body.appendChild(td_firstname2); // hozzáfüzzük a firstname2-t a sorhoz
         }
     
-        const td_married = document.createElement('td');  //létrehozzuk a married helyét
+        const td_married = document.createElement('td'); // létrehozzuk a married helyét
         
-        if (pers.married == false){ //megnézzük hogy házas e, és ha nem false akkor nem értéket adunk vissza
-            td_married.innerHTML = "nem";
-        }
-        else{
-            td_married.innerHTML = "igen"; //különben igen értéket
-        }
-        tr_body.appendChild(td_married); //hozzá füzzük a merriedet a táblázathoz
+        td_married.innerHTML = pers.married ? "igen" : "nem"; // beállítjuk az értéket, hogy "igen" vagy "nem"
+        tr_body.appendChild(td_married); // hozzáadjuk a married-et a táblázathoz
     
         const td_pet = document.createElement('td'); // létrehozzuk a pet helyét
-        td_pet.innerHTML = pers.pet; //megadjuk a pet értékét
+        td_pet.innerHTML = pers.pet; // megadjuk a pet értékét
     
         tr_body.appendChild(td_pet); // hozzáadjuk a pet-et a táblázathoz
-    } 
-
-
-
+    }
 }
 
 
 function validateFields(lastHTML, firstHTML, petHTML){
-    let result = true;
-    if (lastHTML.value === ''){
-        const parent_element = lastHTML.parentElement
+    let result = true;  //létrehozunk egy result változót igaz értékkel
+    if (lastHTML.value === ''){ // ha nem kap a függvény lastHTML értéket
+        const parent_element = lastHTML.parentElement //megkeressük a lastHTML szülő elemét (ami alá van rendelve)
 
-        const error = parent_element.querySelector('.error');
-        error.innerHTML = 'kotelezo'
+        const error = parent_element.querySelector('.error'); //megkeressük a kitöltetlen mezőt, ahová a hiba üzenet kellene
+        error.innerHTML = 'kotelezo'   //megadjuk az error értékét
 
-        result = false;
+        result = false; //a resultot false-ra állítjuk (ez jelzi hogy nincs kitöltve egy mező)
     }
 
     if (firstHTML.value === ''){
@@ -212,5 +188,5 @@ function validateFields(lastHTML, firstHTML, petHTML){
         result = false;
     }
 
-    return result
+    return result //vissza adjuk a result-ot
 }
