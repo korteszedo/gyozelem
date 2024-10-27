@@ -61,8 +61,12 @@ tr.appendChild(th_haziallat);   //hozzá füzzük a fejléchet az oszlopot
 
 table.appendChild(tbody); // a table alá rendeljük a tbodyt
 
+render();
 
 const form = document.getElementById('form'); // a formot egy változóba tároljuk
+
+
+
 
 form.addEventListener('submit' ,function(e){ //létrehozunk egy függvényt ami a submit parancsra hívódik meg
 
@@ -97,10 +101,10 @@ form.addEventListener('submit' ,function(e){ //létrehozunk egy függvényt ami 
             married: marriedvalue,
             pet: petvalue
         }
+        array.push(newpers);
     }
 
-
-    array.push(newpers);
+    
 
     render();
 
