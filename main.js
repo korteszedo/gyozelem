@@ -32,10 +32,11 @@ const table = document.createElement('table'); //létrehozunk egy tablet
 const thead = document.createElement('thead'); //létrehozunk egy theadot
 const tr = document.createElement('tr'); // létre hozunk egy tr-t
 
-const th_firstname = document.createElement('th'); // létrehozunk egy th-t a firsnamenek
-const th_lastname = document.createElement('th'); // létrehozunk egy th-t a lastnamenek
-const th_hazas_e = document.createElement('th') // létrehozzuk a hazas_e fejléc oszlopát
-const th_haziallat = document.createElement('th') // létrehozzuk a haziallat fejléc oszlopát
+const th_lastname = automatikustable("th", "Vezetéknév", thead);
+const th_firstname = automatikustable("th", "Keresznév", thead);
+const th_hazas = automatikustable("th", "Házas e?", thead);
+const th_pet = automatikustable("th", "Háziállat", thead);
+
 
 const tbody = document.createElement("tbody"); //létrehozunk egy tbodyt
 
@@ -45,19 +46,10 @@ table.appendChild(thead); // table alá rendeljük a thheadot
 thead.appendChild(tr); //thead alá rendeljük a tr-t
 
  
-th_firstname.innerHTML = "keresztnév"; //megadjukfejléc egyik nevét
-th_lastname.innerHTML = "vezetéknév"; // megadjuk a fejléc másik nevét
-th_hazas_e.innerHTML = "Házas e?"; // megadjuk a fejléc nevét
-th_haziallat.innerHTML = "Háziállat"; // megadjuk a fejléc nevét
 th_firstname.colSpan = 2; // beállítjuk hogy 2 oszlopa legyen a th_firstname
 
 
 
-
-tr.appendChild(th_lastname);  //hozzá füzzük a fejléchet az oszlopot
-tr.appendChild(th_firstname);   //hozzá füzzük a fejléchet az oszlopot
-tr.appendChild(th_hazas_e); //hozzá füzzük a fejléchet az oszlopot
-tr.appendChild(th_haziallat);   //hozzá füzzük a fejléchet az oszlopot
 
 table.appendChild(tbody); // a table alá rendeljük a tbodyt
 
@@ -189,4 +181,20 @@ function validateFields(lastHTML, firstHTML, petHTML){
     }
 
     return result //vissza adjuk a result-ot
+}
+
+/**
+ * 
+ * @param {td|th} fajta 
+ * @param {string} taratlom 
+ * @param {HTMLTableRowElement} szulo 
+ * @returns {automatikustable}
+ */
+function automatikustable(fajta, taratlom, szulo){
+
+    const asd = document.createElement(fajta);
+    asd.innerHTML = taratlom;
+    szulo.appendChild(asd);
+
+    return asd;
 }
