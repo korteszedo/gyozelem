@@ -83,7 +83,6 @@ form.addEventListener('submit' ,function(e){ //létrehozunk egy függvényt ami 
     
 })
 
-createHtmlElement('table', 'perstable', document.body)
 
 
 

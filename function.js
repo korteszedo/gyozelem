@@ -43,56 +43,41 @@ function automatikustable(fajta, taratlom, szulo){
     return asd;
 }
 
-function render(array) {
+function render(array1) {
 
-    const tbody = document.getElementById("perstbody") 
+    const tbody = document.getElementById("persontbody") 
     
 
 
-    for (let pers of array) {
+    for (let pers of array1) {
         const tr_body = document.createElement('tr'); // létrehozzuk egy sort
-
-        tr_body.addEventListener('click', function(e) { // létrehoztunk egy függvényt ami akkor fut le ha a 'click' esemény megtörténik
-            const select_tr = tbody.querySelector('.selected'); // lekéri a kijelölt sort
+        
+        const lastnaem = automatikustable('td', pers.lastname, tr_body)
+        let firstname1 = automatikustable('td', pers.firstname1, tr_body);
     
-            if (select_tr != undefined) { // ha  a select_tr nem undefined, tehát van kijelölt sor
-                select_tr.classList.remove('selected'); // eltávolítja a kijelölést
-            }
-    
-            e.currentTarget.classList.add('selected'); // kijelöli az aktuális sort
-        });
-
-       
-
-        const td_firstname = document.createElement('td'); // létrehozzuk a firstname helyét
-        td_firstname.innerHTML = pers.firstname1; // megadjuk a firstname értékét
-    
-        const td_lastname = document.createElement('td'); // létrehozzuk a lastname helyét
-        td_lastname.innerHTML = pers.lastname; // megadjuk a lastname értékét
-
-        tr_body.appendChild(td_lastname); // sorba rendeljük a lastname-et
-        tr_body.appendChild(td_firstname); // sorba rendeljük a firstnamet
         
         if (pers.firstname2 == undefined) { // ha nincs firstname2
-            td_firstname.colSpan = 2;  // akkor a táblázatunk 2 oszlopos lesz
+            firstname1.colSpan = 2;  // akkor a táblázatunk 2 oszlopos lesz
         } else {
-            const td_firstname2 = document.createElement('td'); // létrehozzuk a firstname2 helyét
-            td_firstname2.innerHTML = pers.firstname2; // értéket adunk a firstname2-nek
-            tr_body.appendChild(td_firstname2); // hozzáfüzzük a firstname2-t a sorhoz
+            let firstname2 = automatikustable('td', pers.firstname2, tr_body);
         }
     
-        const td_married = document.createElement('td'); // létrehozzuk a married helyét
-        
-        td_married.innerHTML = pers.married ? "igen" : "nem"; // beállítjuk az értéket, hogy "igen" vagy "nem"
-        tr_body.appendChild(td_married); // hozzáadjuk a married-et a táblázathoz
-    
-        const td_pet = document.createElement('td'); // létrehozzuk a pet helyét
-        td_pet.innerHTML = pers.pet; // megadjuk a pet értékét
-    
-        tr_body.appendChild(td_pet); // hozzáadjuk a pet-et a táblázathoz
+        const married = automatikustable('td',pers.married ? "igen" : "nem", tr_body);
 
-        ;
+        const firstname2 = automatikustable('td', pers.pet, tr_body);
+        
+    
+        tbody.appendChild(tr_body); // hozzáadjuk a pet-et a táblázathoz
+
+        tr_body.addEventListener('click', function(e){
+            const kijelol = tbody.querySelector('.selected');
+            if(kijelol != undefined){
+                kijelol.classList.remove('selected')
+            }e.currentTarget.classList.add('selected');
+        })
+
     }
+
 }
 
 function validateFields(lastHTML, firstHTML, petHTML){
