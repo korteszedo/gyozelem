@@ -28,32 +28,14 @@ let array = [
     },
 ]
 
-const table = document.createElement('table'); //létrehozunk egy tablet
-const thead = document.createElement('thead'); //létrehozunk egy theadot
-const tr = document.createElement('tr'); // létre hozunk egy tr-t
-
-const th_lastname = automatikustable("th", "Vezetéknév", thead);
-const th_firstname = automatikustable("th", "Keresznév", thead);
-const th_hazas = automatikustable("th", "Házas e?", thead);
-const th_pet = automatikustable("th", "Háziállat", thead);
+createHtmlElement("table", "perstable", document.body);
+createHtmlElementWithParentId("thead", "persthead", "perstable");
+createHtmlElementWithParentId("tr", "perstr", "persthead");
+renderTableHeader("perstr");
+createHtmlElementWithParentId("tbody", "persontbody", "perstable");
 
 
-const tbody = document.createElement("tbody"); //létrehozunk egy tbodyt
-
-
-document.body.appendChild(table); // hozzáfüzzük a bodyhoz a tablet(vagyis alát rendeljük)
-table.appendChild(thead); // table alá rendeljük a thheadot
-thead.appendChild(tr); //thead alá rendeljük a tr-t
-
- 
-th_firstname.colSpan = 2; // beállítjuk hogy 2 oszlopa legyen a th_firstname
-
-
-
-
-table.appendChild(tbody); // a table alá rendeljük a tbodyt
-
-render();
+render(array);
 
 const form = document.getElementById('form'); // a formot egy változóba tároljuk
 
@@ -94,13 +76,14 @@ form.addEventListener('submit' ,function(e){ //létrehozunk egy függvényt ami 
             pet: petvalue
         }
         array.push(newpers); //feltöltjük az arrayhez a newpers értékeit
-        render(); //meghívjuk a render függvényt feltöltse az új adatokat
+        render(array); //meghívjuk a render függvényt feltöltse az új adatokat
     }
 
+    form.reset()
     
 })
 
-
+createHtmlElement('table', 'perstable', document.body)
 
 
 
